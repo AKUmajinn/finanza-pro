@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Dashboard">
+     <TextView
+         android:id="@+id/tv_dashboard_title"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Dashboard"
+         android:textColor="@color/colorTitles"
+         android:textSize="26sp"
+         android:textStyle="bold"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         android:layout_marginStart="25dp"
+         android:layout_marginTop="30dp"/>
+    
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/campana_dash"
+        app:tint="@color/colorSubTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_dashboard_title"
+        android:layout_marginEnd="25dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorTitles"
+        app:layout_constraintTop_toBottomOf="@id/tv_dashboard_title"
+        android:layout_marginTop="12dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

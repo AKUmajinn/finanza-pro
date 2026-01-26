@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores para dashboard -->
+    <color name="backgroundParent">#f9fafc</color>
+    <color name="colorTitles">#171a2b</color>
+    <color name="colorSubTitle">#7d8393</color>
+    <color name="colorIcon">#485566</color>
 </resources>
