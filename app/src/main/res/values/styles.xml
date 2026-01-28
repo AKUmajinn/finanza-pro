@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ================= TEXT ================= -->
+
+    <style name="Text.Title" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Text.Section" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="Text.SubSection" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_secondary2</item>
+    </style>
+
+    <!-- ================= INPUT ================= -->
+
+    <style name="Input.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">@color/inputBorder</item>
+    </style>
+
+    <style name="Input.EditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Input.Description.EditText" parent="Input.EditText">
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:maxLength">250</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- ================= BUTTON ================= -->
+
+    <style name="Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- ================= CARD ================= -->
+
+    <style name="Card.Basic" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@android:color/white</item>
+    </style>
+
+    <!-- ===== AMOUNT INPUT ===== -->
+    <style name="Input.Amount" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="Button.fill" parent="Widget.MaterialComponents.Button">
+        <item name="android:radius">8dp</item>
+        <item name="backgroundTint">#007DBA</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Finanza Pro</string>
+
+    <string name="title_register_expense">Registrar Gasto</string>
+    <string name="label_amount">MONTO DEL GASTO</string>
+    <string name="default_amount">0.00</string>
+    <string name="label_description">DESCRIPCIÓN</string>
+    <string name="hint_description">Ej. Compra de supermercado</string>
+    <string name="label_category">CATEGORÍA</string>
+    <string name="hint_category">Seleccionar categoria</string>
+    <string name="label_date">FECHA</string>
+    <string name="label_time">HORA</string>
+    <string name="label_payment_method">MÉTODO DE PAGO</string>
+    <string name="payment_cash">EFECTIVO</string>
+    <string name="payment_card">TARJETA</string>
+    <string name="action_save">GUARDAR</string>
+
+    <string name="currency_pen">S/</string>
+    <string name="buton_aceptar">Registrar</string>
+
+
 </resources>
