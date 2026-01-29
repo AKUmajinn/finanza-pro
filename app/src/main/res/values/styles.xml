@@ -17,12 +17,26 @@
         <item name="android:textColor">@color/text_primary</item>
     </style>
 
+    <style name="Text.SubTitle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
     <style name="Input.AmountText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textSize">40sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:inputType">numberDecimal</item>
         <item name="android:background">@null</item>
+    </style>
+
+    <style name="Input.Field1" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:inputType">none</item>
     </style>
 
     <style name="Button.fill" parent="Widget.MaterialComponents.Button">
