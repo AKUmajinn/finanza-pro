@@ -1,89 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="@color/background"
+    android:theme="@style/Theme.FinanzaPro">
 
-    <!-- Toolbar -->
-    <ImageView
-        android:id="@+id/btnBack"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <!-- ===== AMOUNT ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        >
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_register_expense"
-        style="@style/Text.Title"
-        app:layout_constraintStart_toEndOf="@id/btnBack"
-        app:layout_constraintTop_toTopOf="@id/btnBack"
-        app:layout_constraintBottom_toBottomOf="@id/btnBack"
-        android:layout_marginStart="12dp"/>
-
-    <!-- Monto -->
-    <TextView
-        android:id="@+id/tvAmountLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_amount"
-        android:textColor="@color/text_secondary"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textAllCaps="true"
-        android:gravity="center"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <!-- Contenedor del monto -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/tvAmountLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Moneda -->
         <TextView
-            android:id="@+id/tvCurrency"
+            android:id="@+id/tvAmount"
+            style="@style/Text.Section"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:text="@string/title_amount" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <!-- Moneda -->
+            <TextView
+                android:id="@+id/tvCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/currency"
+                style="@style/Text.Amount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/etAmount"
+                app:layout_constraintTop_toTopOf="@id/etAmount"/>
+
+            <!-- Monto editable -->
+            <EditText
+                android:id="@+id/etAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/default_amount"
+                style="@style/Input.AmountText"
+
+                android:padding="8dp"
+                app:layout_constraintStart_toEndOf="@id/tvCurrency"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Descripcion -->
+        <TextView
+            android:id="@+id/tvDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/currency_pen"
-            android:textSize="24sp"
-            android:textColor="@color/text_currency"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/etAmount"
-            app:layout_constraintTop_toTopOf="@id/etAmount"/>
+            android:text="@string/label_description"
+            style="@style/Text.SubTitle"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="24dp" />
 
-        <!-- Monto editable -->
-        <EditText
-            android:id="@+id/etAmount"
-            android:layout_width="0dp"
+        <!-- Campo editable con icono -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/eticonoEditar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/default_amount"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"
-            android:gravity="center"
-            android:inputType="numberDecimal"
-            android:maxLines="1"
-            android:background="@null"
-            android:padding="8dp"
-            app:layout_constraintStart_toEndOf="@id/tvCurrency"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tvDescripcion">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_description"
+                android:maxLength="250"
+                style="@style/Input.Field1"
+                android:inputType="textMultiLine" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- TEXTO CATEGORÍA -->
+        <TextView
+            android:id="@+id/tvCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_category"
+            style="@style/Text.SubTitle"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="8dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/tvDescripcion"
+            />
+
+        <!-- COMBOBOX -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="dropdown_menu"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tvCategoria"
+            >
+
+            <AutoCompleteTextView
+                android:id="@+id/actvCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_category"
+                style="@style/Input.Field1"
+                android:focusable="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ===== SAVE ===== -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/action_save" />
+    </LinearLayout>
+
+
+</LinearLayout>
