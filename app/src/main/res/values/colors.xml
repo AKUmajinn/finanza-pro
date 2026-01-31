@@ -8,7 +8,7 @@
 
     <color name="background">#F8F9FB</color>
     <color name="surface">#FFFFFF</color>
-
+    <color name="inputBorder">#E0E0E0</color>
     <color name="text_primary">#263238</color>
     <color name="text_secondary">#78909C</color>
 

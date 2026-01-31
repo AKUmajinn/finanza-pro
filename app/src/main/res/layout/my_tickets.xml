@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/tvTicketsTitle"
-        style="@style/Text.Title"
+        style="@style/Text.SubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTicketsTitle"
-        tools:listitem="@layout/item_ticket" />
+         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddTicket"
