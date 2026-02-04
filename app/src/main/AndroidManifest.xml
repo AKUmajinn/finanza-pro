@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinanzaPro">
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,21 +21,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TicketsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ConfigurationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoadingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-
     </application>
 </manifest>

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "905208132059",
+    "firebase_url": "https://finanzapro-6f328-default-rtdb.firebaseio.com",
+    "project_id": "finanzapro-6f328",
+    "storage_bucket": "finanzapro-6f328.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905208132059:android:20b6284cf88708dc0fb7fe",
+        "android_client_info": {
+          "package_name": "com.example.finanzapro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbCPbzNSI0QWnGsI1lnH-BO4yeHPkX17E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

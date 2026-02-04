@@ -1,4 +1,4 @@
-package com.example.finanzapro
+package com.example.finanzapro // Asegúrate de que este paquete coincida con el tuyo
 
-class DashboardFragment {
-}
+import androidx.fragment.app.Fragment
+class DashboardFragment : Fragment(R.layout.fragment_dashboard)

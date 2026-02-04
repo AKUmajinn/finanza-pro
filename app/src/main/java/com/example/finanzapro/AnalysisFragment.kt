@@ -1,4 +1,4 @@
 package com.example.finanzapro
 
-class AnalysisFragment {
-}
+import androidx.fragment.app.Fragment
+class AnalysisFragment : Fragment(R.layout.fragment_analysis)

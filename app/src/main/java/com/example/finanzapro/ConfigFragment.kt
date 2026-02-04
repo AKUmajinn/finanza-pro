@@ -1,4 +1,5 @@
 package com.example.finanzapro
 
-class ConfigFragment {
-}
+import androidx.fragment.app.Fragment
+
+class ConfigFragment : Fragment(R.layout.fragment_configuration)
