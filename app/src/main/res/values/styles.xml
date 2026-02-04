@@ -58,4 +58,26 @@
         <item name="backgroundTint">#007DBA</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+
+    <!-- ================= MENU ================= -->
+
+    <style name="BottomNavText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigation</item>
+        <item name="itemIconTint">@color/nav_items_selector</item>
+        <item name="itemTextColor">@color/nav_items_selector</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavText</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavText</item>
+        <item name="backgroundTint">@android:color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigation" parent="">
+        <item name="colorPrimary">@color/primary</item>
+    </style>
 </resources>
