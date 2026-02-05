@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:905208132059:android:20b6284cf88708dc0fb7fe",
+        "mobilesdk_app_id": "1:905208132059:android:f5f67c09cbb524b00fb7fe",
         "android_client_info": {
-          "package_name": "com.example.finanzapro"
+          "package_name": "com.example.finanzaPro"
         }
       },
       "oauth_client": [],

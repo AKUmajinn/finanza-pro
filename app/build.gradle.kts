@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.finanzapro"
+        applicationId = "com.example.finanzaPro"
         minSdk = 30
         targetSdk = 36
         versionCode = 1
