@@ -6,9 +6,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.finanzapro.MainActivity
 import com.example.finanzapro.R
 import com.example.finanzapro.adapter.TicketsAdapter
 import com.example.finanzapro.model.Ticket
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -24,13 +26,17 @@ class TicketsFragment : Fragment(R.layout.fragment_my_tickets) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // segun la docu asi se maneha recyclker, contrastar con la clase
         recyclerView = view.findViewById(R.id.rvTickets)
-
         recyclerView.layoutManager = LinearLayoutManager(context)
-
         adapter = TicketsAdapter(ticketList)
         recyclerView.adapter = adapter
+
+        //toDo: Cambiar icono pls
+        val fabScan = view.findViewById<FloatingActionButton>(R.id.fabScan)
+
+        fabScan.setOnClickListener {
+            (requireActivity() as MainActivity).replaceFragment(RegisterFragment())
+        }
 
         loadTicketsFromFirebase()
     }
