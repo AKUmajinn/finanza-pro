@@ -5,10 +5,13 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.finanzapro.AnalysisFragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.finanzapro.MainActivity
 import com.example.finanzapro.R
+import com.example.finanzapro.adapter.TransactionAdapter
+import com.example.finanzapro.adapter.TransactionViewModel
 import com.example.finanzapro.databinding.FragmentRegisterBinding
+import com.example.finanzapro.model.Transaction
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -20,17 +23,29 @@ import java.util.TimeZone
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private lateinit var binding: FragmentRegisterBinding
+    private lateinit var adapter: TransactionAdapter
+    private lateinit var viewModel: TransactionViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegisterBinding.bind(view)
-
+        viewModel = ViewModelProvider(requireActivity())[TransactionViewModel::class.java]
         configurarDatePicker()
         configurarTimePicker()
         establecerFechaHoraActual()
         cargarCategorias()
 
         binding.btnSave.setOnClickListener {
+
+            val transaction = Transaction(
+                amount = binding.etAmount.text.toString().toDouble(),
+                description = binding.etDescripcion.text.toString(),
+                date = binding.etFecha.text.toString(),
+                hour = binding.etHora.text.toString(),
+                category = binding.actvCategoria.text.toString(),
+                paymentMethod = binding.rgMetodoPago.checkedRadioButtonId.toString()
+            )
+            viewModel.saveTransactions(transaction)
             showToast("Guardando datos...")
             (requireActivity() as MainActivity).replaceFragment(AnalysisFragment())
         }

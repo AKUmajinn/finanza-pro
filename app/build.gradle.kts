@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.finanzaPro"
+        applicationId = "com.example.finanzapro"
         minSdk = 30
         targetSdk = 36
         versionCode = 1
@@ -53,7 +53,7 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-database-ktx")
-
+    implementation("com.google.firebase:firebase-firestore-ktx")
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.fragment.ktx)

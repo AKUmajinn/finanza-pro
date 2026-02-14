@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.finanzapro.databinding.ActivityMainBinding
+import com.example.finanzapro.ui.AnalysisFragment
 import com.example.finanzapro.ui.ConfigFragment
 import com.example.finanzapro.ui.DashboardFragment
 import com.example.finanzapro.ui.TicketsFragment
