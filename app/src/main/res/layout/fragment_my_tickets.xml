@@ -7,72 +7,12 @@
     android:layout_height="match_parent"
     android:background="#F5F5F5">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerContainer"
+    <include
+        android:id="@+id/customHeader"
+        layout="@layout/layout_custom_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="20dp"
-        android:elevation="4dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/tvHeaderTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mis Boletas"
-            android:textColor="#212121"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/tvTicketCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12 guardadas"
-            android:textColor="#757575"
-            android:textSize="12sp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@id/tvHeaderTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <ImageButton
-                android:id="@+id/btnSearch"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_search"
-                android:contentDescription="Buscar"
-                app:tint="#757575"
-                android:layout_marginEnd="8dp"/>
-
-            <ImageButton
-                android:id="@+id/btnFilter"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_sort"
-                android:contentDescription="Ordenar"
-                app:tint="#757575"/>
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTickets"
@@ -81,7 +21,7 @@
         android:clipToPadding="false"
         android:paddingTop="16dp"
         android:paddingBottom="80dp"
-        app:layout_constraintTop_toBottomOf="@id/headerContainer"
+        app:layout_constraintTop_toBottomOf="@id/customHeader"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
