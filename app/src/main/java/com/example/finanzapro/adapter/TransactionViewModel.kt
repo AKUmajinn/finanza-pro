@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finanzapro.model.Transaction
-import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,7 +14,8 @@ import java.util.UUID
 
 class TransactionViewModel: ViewModel() {
 
-    private val db = Firebase.firestore
+    private val database = Firebase.database
+    private val transactionsRef = database.getReference("transactions")
 
     private var _listTransactions = MutableLiveData<List<Transaction>>(emptyList())
     val listTransactions: LiveData<List<Transaction>> = _listTransactions
@@ -26,8 +27,16 @@ class TransactionViewModel: ViewModel() {
     fun getTransactions() {
         viewModelScope.launch (Dispatchers.IO) {
             try {
-                var result = db.collection("transactions").get().await()
-                val transactions = result.documents.mapNotNull { it.toObject(Transaction::class.java) }
+                val snapshot = transactionsRef.get().await()
+                val transactions = mutableListOf<Transaction>()
+
+                snapshot.children.forEach { child ->
+                    child.getValue(Transaction::class.java)?.let { transaction ->
+                        transaction.id = child.key ?: ""
+                        transactions.add(transaction)
+                    }
+                }
+
                 _listTransactions.postValue(transactions)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -39,7 +48,7 @@ class TransactionViewModel: ViewModel() {
         transaction.id = UUID.randomUUID().toString()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                db.collection("transactions").document(transaction.id).set(transaction).await()
+                transactionsRef.child(transaction.id).setValue(transaction).await()
                 _listTransactions.postValue(_listTransactions.value?.plus(transaction))
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -50,8 +59,7 @@ class TransactionViewModel: ViewModel() {
     fun updateTransaction(transaction: Transaction) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                db.collection("transactions").document(transaction.id).update(transaction.toMap())
-                    .await()
+                transactionsRef.child(transaction.id).setValue(transaction).await()
                 _listTransactions.postValue(_listTransactions.value?.map {
                     if (it.id == transaction.id) transaction else it
                 })
@@ -64,7 +72,7 @@ class TransactionViewModel: ViewModel() {
     fun deleteTransaction(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                db.collection("transactions").document(id).delete().await()
+                transactionsRef.child(id).removeValue().await()
                 _listTransactions.postValue(_listTransactions.value?.filter { it.id != id })
             } catch (e: Exception) {
                 e.printStackTrace()
