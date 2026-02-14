@@ -15,19 +15,19 @@ import java.util.UUID
 class TransactionViewModel: ViewModel() {
 
     private val database = Firebase.database
-    private val transactionsRef = database.getReference("transactions")
+    private val transactionsRef = database.getReference("users/")
 
     private var _listTransactions = MutableLiveData<List<Transaction>>(emptyList())
     val listTransactions: LiveData<List<Transaction>> = _listTransactions
 
     init {
-        getTransactions()
+        getTransactions("user_123", "transactions")
     }
 
-    fun getTransactions() {
+    fun getTransactions(user: String, table: String) {
         viewModelScope.launch (Dispatchers.IO) {
             try {
-                val snapshot = transactionsRef.get().await()
+                val snapshot = transactionsRef.child("$user/$table").get().await()
                 val transactions = mutableListOf<Transaction>()
 
                 snapshot.children.forEach { child ->
@@ -44,11 +44,11 @@ class TransactionViewModel: ViewModel() {
         }
     }
 
-    fun saveTransactions(transaction: Transaction) {
+    fun saveTransactions(transaction: Transaction, user: String, table: String) {
         transaction.id = UUID.randomUUID().toString()
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                transactionsRef.child(transaction.id).setValue(transaction).await()
+                transactionsRef.child(user + "/" + table + "/" + transaction.id).setValue(transaction).await()
                 _listTransactions.postValue(_listTransactions.value?.plus(transaction))
             } catch (e: Exception) {
                 e.printStackTrace()

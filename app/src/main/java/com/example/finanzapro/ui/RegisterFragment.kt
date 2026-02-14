@@ -45,7 +45,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 category = binding.actvCategoria.text.toString(),
                 paymentMethod = binding.rgMetodoPago.checkedRadioButtonId.toString()
             )
-            viewModel.saveTransactions(transaction)
+            viewModel.saveTransactions(transaction, "user_123", "transactions")
             showToast("Guardando datos...")
             (requireActivity() as MainActivity).replaceFragment(AnalysisFragment())
         }
