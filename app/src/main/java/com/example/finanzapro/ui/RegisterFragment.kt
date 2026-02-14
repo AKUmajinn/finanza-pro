@@ -43,7 +43,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 date = binding.etFecha.text.toString(),
                 hour = binding.etHora.text.toString(),
                 category = binding.actvCategoria.text.toString(),
-                paymentMethod = binding.rgMetodoPago.checkedRadioButtonId.toString()
+                paymentMethod = when (binding.rgMetodoPago.checkedRadioButtonId) {
+                    R.id.rbEfectivo -> binding.rbEfectivo.text.toString()
+                    R.id.rbTarjeta -> binding.rbTarjeta.text.toString()
+                    else -> ""
+                }
             )
             viewModel.saveTransactions(transaction, "user_123", "transactions")
             showToast("Guardando datos...")
