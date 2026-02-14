@@ -38,11 +38,6 @@ class TicketsFragment : Fragment(R.layout.fragment_my_tickets) {
         adapter = TicketsAdapter(ticketList)
         recyclerView.adapter = adapter
 
-        val fabScan = view.findViewById<FloatingActionButton>(R.id.fabScan)
-        fabScan.setOnClickListener {
-            (requireActivity() as MainActivity).replaceFragment(RegisterFragment())
-        }
-
         loadTicketsFromFirebase()
     }
 
