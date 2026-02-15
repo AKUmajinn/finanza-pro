@@ -2,8 +2,10 @@ package com.example.finanzapro.model
 
 data class Ticket(
     val id: String = "",
-    val imageUrl: String = "",
-    val relatedTransactionId: String = "",
-    val status: String = "pending",
-    val uploadDate: Long = 0L // para el formato de fechas me parece que es: 22/10/1995
+    val merchant: String = "Comercio",
+    val amount: Double = 0.0,
+    val categoryId: String = "cat_others",
+    val status: String = "",
+    val uploadDate: Long = 0,
+    val imageUrl: String = ""
 )

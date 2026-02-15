@@ -2,7 +2,7 @@ package com.example.finanzapro.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView // + Para el título
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,14 +27,13 @@ class TicketsFragment : Fragment(R.layout.fragment_my_tickets) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Header dinamico, de nada, copiar pegar y añadirs sus iconos en el custom header
         view.findViewById<TextView>(R.id.tvHeaderTitle).text = "Mis Boletas"
         view.findViewById<View>(R.id.btnSearch).visibility = View.VISIBLE
         view.findViewById<View>(R.id.btnFilter).visibility = View.VISIBLE
 
-        //Recycler, solo reutilizar en los otros ui controlers
         recyclerView = view.findViewById(R.id.rvTickets)
         recyclerView.layoutManager = LinearLayoutManager(context)
+
         adapter = TicketsAdapter(ticketList)
         recyclerView.adapter = adapter
 
