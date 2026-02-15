@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
+    android:orientation="vertical"
     android:theme="@style/Theme.FinanzaPro">
 
     <include
@@ -22,15 +21,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="4dp"
-            android:paddingBottom="32dp"> <TextView
-            android:id="@+id/tvAmount"
-            style="@style/Text.Section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_amount" />
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <TextView
+                android:id="@+id/tvAmount"
+                style="@style/Text.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_amount" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -39,122 +40,160 @@
 
                 <TextView
                     android:id="@+id/tvCurrency"
+                    style="@style/Text.Amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/currency"
-                    style="@style/Text.Amount"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/etAmount"
-                    app:layout_constraintTop_toTopOf="@id/etAmount"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/etAmount" />
 
                 <EditText
                     android:id="@+id/etAmount"
+                    style="@style/Input.AmountText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/default_amount"
-                    style="@style/Input.AmountText"
                     android:padding="8dp"
-                    app:layout_constraintStart_toEndOf="@id/tvCurrency"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintStart_toEndOf="@id/tvCurrency"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvDescripcion"
+                style="@style/Text.SubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_description"
-                style="@style/Text.SubTitle"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="4dp"
-                android:layout_marginTop="16dp" />
+                android:text="@string/label_description" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/eticonoEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxBackgroundMode="outline"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp">
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDescripcion"
+                    style="@style/Input.Field1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_description"
-                    android:maxLength="250"
-                    style="@style/Input.Field1"
-                    android:inputType="textMultiLine" />
+                    android:inputType="textMultiLine"
+                    android:maxLength="250" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/tvCategoria"
+                style="@style/Text.SubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_category"
-                style="@style/Text.SubTitle"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="4dp"
+                android:text="@string/label_category" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilCategoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:endIconMode="dropdown_menu"
                 app:boxBackgroundMode="outline"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp">
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:endIconMode="dropdown_menu">
 
                 <AutoCompleteTextView
                     android:id="@+id/actvCategoria"
+                    style="@style/Input.Field1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_category"
-                    style="@style/Input.Field1"
-                    android:focusable="false" />
+                    android:focusable="false"
+                    android:hint="@string/hint_category" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginEnd="8dp">
-                    <TextView style="@style/Text.SubTitle" android:text="@string/label_date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="4dp" />
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" app:boxBackgroundMode="outline" app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etFecha" style="@style/Input.Calendar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Text.SubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/label_date" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etFecha"
+                            style="@style/Input.Calendar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="8dp">
-                    <TextView style="@style/Text.SubTitle" android:text="@string/label_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="4dp" />
-                    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" app:boxBackgroundMode="outline" app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp">
-                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/etHora" style="@style/Input.Calendar" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Text.SubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/label_time" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundMode="outline"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etHora"
+                            style="@style/Input.Calendar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
                 style="@style/Text.SubTitle"
-                android:text="@string/label_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
+                android:text="@string/label_payment"
                 android:textAllCaps="true" />
 
             <com.google.android.material.card.MaterialCardView
@@ -167,11 +206,26 @@
                     android:id="@+id/rgMetodoPago"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="12dp"
-                    android:gravity="center">
-                    <RadioButton android:id="@+id/rbEfectivo" style="@style/Text.SubTitleRadio" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/payment_cash" android:checked="true" />
-                    <RadioButton android:id="@+id/rbTarjeta" style="@style/Text.SubTitleRadio" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/payment_card" />
+                    android:padding="12dp">
+
+                    <RadioButton
+                        android:id="@+id/rbEfectivo"
+                        style="@style/Text.SubTitleRadio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="@string/payment_cash" />
+
+                    <RadioButton
+                        android:id="@+id/rbTarjeta"
+                        style="@style/Text.SubTitleRadio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/payment_card" />
                 </RadioGroup>
             </com.google.android.material.card.MaterialCardView>
 
