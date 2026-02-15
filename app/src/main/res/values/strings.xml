@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Finanza Pro</string>
 
+    <string name="register_title">Registrar Gasto</string>
     <string name="title_amount">MONTO DEL GASTO</string>
     <string name="currency">S/</string>
     <string name="default_amount">0.00</string>

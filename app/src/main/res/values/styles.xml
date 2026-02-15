@@ -41,7 +41,8 @@
     <style name="Input.Field1" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textSize">16dp</item>
         <item name="android:textStyle">bold</item>
-
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:background">@color/white</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:inputType">none</item>
     </style>
@@ -49,6 +50,7 @@
     <style name="Input.Calendar" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">@color/text_primary</item>
+        <item name="android:background">@color/white</item>
         <item name="android:inputType">none</item>
         <item name="android:focusable">false</item>
     </style>
