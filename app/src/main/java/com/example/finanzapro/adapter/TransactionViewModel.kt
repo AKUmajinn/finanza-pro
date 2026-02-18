@@ -80,4 +80,12 @@ class TransactionViewModel: ViewModel() {
         }
     }
 
+    //funcion para pintar en el dashboard
+    private val _transactionSelected = MutableLiveData<Transaction>()
+    val transactionSelected: LiveData<Transaction> = _transactionSelected
+
+    fun selectTransaction(transaction: Transaction){
+        _transactionSelected.value = transaction
+    }
+
 }
