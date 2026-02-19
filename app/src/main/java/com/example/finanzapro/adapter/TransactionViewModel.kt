@@ -20,10 +20,6 @@ class TransactionViewModel: ViewModel() {
     private var _listTransactions = MutableLiveData<List<Transaction>>(emptyList())
     val listTransactions: LiveData<List<Transaction>> = _listTransactions
 
-    init {
-        getTransactions("user_123", "transactions")
-    }
-
     fun getTransactions(user: String, table: String) {
         viewModelScope.launch (Dispatchers.IO) {
             try {

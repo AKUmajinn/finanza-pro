@@ -54,6 +54,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 )
 
                 val userId = getUserIdOrToast()
+                //lo consulte con la Ia, y dice q esta mal el ! no se si sera cierto
                 if (!userId.isEmpty()) {
                     showToast("No hay usuario autenticado")
                     val intent = Intent(requireContext(), LoginActivity::class.java)
@@ -64,7 +65,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 (requireActivity() as MainActivity).replaceFragment(AnalysisFragment())
             }
         }
-
     }
 
     fun getUserIdOrToast(): String {
@@ -228,6 +228,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
         return true
     }
+
+
 
 
 }
