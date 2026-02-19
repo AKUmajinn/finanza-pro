@@ -65,21 +65,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 (requireActivity() as MainActivity).replaceFragment(AnalysisFragment())
             }
         }
-
-        //Solo lo puse para que funcione el dashboard, si no funciona o tiene otro diferente borralo
-        //---------------------------------------------------------
-        viewModel.transactionSelected.observe(viewLifecycleOwner){transaction ->
-
-            transaction?.let {
-                binding.actvCategoria.setText(it.category)
-                binding.etAmount.setText(it.amount.toString())
-                binding.etFecha.setText(it.date)
-                binding.etHora.setText(it.hour)
-                binding.actvCategoria.setText(it.category)
-            }
-        }
-        //---------------------------------------------------------
-
     }
 
     fun getUserIdOrToast(): String {

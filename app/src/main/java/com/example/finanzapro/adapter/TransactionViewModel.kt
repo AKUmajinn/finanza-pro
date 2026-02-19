@@ -20,10 +20,6 @@ class TransactionViewModel: ViewModel() {
     private var _listTransactions = MutableLiveData<List<Transaction>>(emptyList())
     val listTransactions: LiveData<List<Transaction>> = _listTransactions
 
-    init {
-        getTransactions("user_123", "transactions")
-    }
-
     fun getTransactions(user: String, table: String) {
         viewModelScope.launch (Dispatchers.IO) {
             try {
@@ -78,14 +74,6 @@ class TransactionViewModel: ViewModel() {
                 e.printStackTrace()
             }
         }
-    }
-
-    //funcion para pintar en el dashboard
-    private val _transactionSelected = MutableLiveData<Transaction>()
-    val transactionSelected: LiveData<Transaction> = _transactionSelected
-
-    fun selectTransaction(transaction: Transaction){
-        _transactionSelected.value = transaction
     }
 
 }
