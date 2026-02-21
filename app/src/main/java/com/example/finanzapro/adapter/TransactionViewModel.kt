@@ -39,6 +39,7 @@ class TransactionViewModel: ViewModel() {
                 _listTransactions.postValue(transactions)
             } catch (e: Exception) {
                 e.printStackTrace()
+                _listTransactions.postValue(emptyList())
             }
         }
     }
