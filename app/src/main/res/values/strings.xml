@@ -19,4 +19,17 @@
     <string name="buton_aceptar">Next</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="analysis_resumen">RESUMEN MENSUAL</string>
+    <string name="analysis_total_gastado">Total Gastado</string>
+    <string name="analysis_promedio_diario">Promedio Diario</string>
+    <string name="analysis_este_mes">Este Mes</string>
+
+    <string name="category_distribution">DISTRIBUCIÓN POR CATEGORÍA</string>
+    <string name="category_gastos">Gastos</string>
+    <string name="category_details">DETALLE POR CATEGORIA</string>
+    <string name="category_no_data">No hay datos para mostrar</string>
+    <string name="analysis_detail_prox">Análisis detallado próximamente</string>
+
+
 </resources>

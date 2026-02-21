@@ -31,7 +31,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegisterBinding.bind(view)
         viewModel = ViewModelProvider(requireActivity())[TransactionViewModel::class.java]
-
+        binding.customHeader.tvHeaderTitle.text = "Registro de Gastos"
         configurarDatePicker()
         configurarTimePicker()
         establecerFechaHoraActual()
@@ -236,6 +236,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             "Vivienda", "Hogar" -> "cat_home"
             "Entretenimiento" -> "cat_entertainment"
             "Salud" -> "cat_health"
+            "Educación" -> "cat_education"
+            "Ropa" -> "cat_clothing"
+            "Tecnología" -> "cat_technology"
+            "Viajes" -> "cat_travel"
+            "Otros" -> "cat_others"
             else -> "cat_others"
         }
     }

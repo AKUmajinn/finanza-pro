@@ -31,7 +31,7 @@
             android:id="@+id/tv_budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="20001"
             tools:text="2000.00"
             style="@style/Text.SubTitle"/>
 
@@ -75,15 +75,19 @@
                 android:id="@+id/tv_remaining_budget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" "
+                android:textSize="18dp"
+                android:textColor="@color/primary_variant"
+                android:textStyle="bold"
+                android:text="s/ 1000"
                 tools:text="S/1150.00"/>
 
 
             <TextView
+                android:id="@+id/tvRestante"
+                style="@style/Text.SubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="RESTANTE"
-                style="@style/Text.SubTitle"/>
+                tools:text="RESTANTE" />
         </LinearLayout>
     </FrameLayout>
 
@@ -102,13 +106,16 @@
             android:layout_height="wrap_content"
             android:text="TOTAL\nGASTADO\nS/"
             style="@style/Text.SubTitle"/>
+
         <TextView
             android:id="@+id/tv_total_spent"
+            style="@style/Text.SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            tools:text="850.00"
-            style="@style/Text.SubTitle"/>
+            android:text="20000"
+            android:textSize="18dp"
+            android:textColor="@color/primary_variant"
+            tools:text="850.00" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,9 +123,10 @@
             android:layout_marginTop="10dp"
             style="@style/Text.SubTitle"/>
         <TextView
+            android:id="@+id/tv_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="100000"
             tools:text="0.0 %"
             style="@style/Text.SubTitle"/>
     </LinearLayout>
@@ -128,6 +136,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gastos Recientes"
+        android:textSize="19dp"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/Fl_budget"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="30dp"
@@ -138,6 +148,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ver todos"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_variant"
         app:layout_constraintTop_toTopOf="@+id/tv_bills"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="30dp"/>

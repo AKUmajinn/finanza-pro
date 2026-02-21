@@ -17,6 +17,7 @@ import com.example.finanzapro.adapter.ConfigViewModel
 import com.example.finanzapro.adapter.TransactionAdapter
 import com.example.finanzapro.adapter.TransactionViewModel
 import com.example.finanzapro.databinding.FragmentDashboardBinding
+import java.util.Calendar
 import java.util.Locale
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
@@ -79,8 +80,25 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         }
 
         transactionViewModel.listTransactions.observe(viewLifecycleOwner) { transactions ->
-            adapter.getList(transactions)
-            currentSpent = transactions.sumOf { it.amount }
+            val calendar = Calendar.getInstance()
+            val currentMonth = calendar.get(Calendar.MONTH)
+            val currentYear = calendar.get(Calendar.YEAR)
+            val monthlyTransactions = transactions.filter { transaction ->
+                try {
+                    val cal = Calendar.getInstance()
+                    cal.timeInMillis = transaction.timestamp
+                    cal.get(Calendar.MONTH) == currentMonth && cal.get(Calendar.YEAR) == currentYear
+                } catch (e: Exception) {
+                    false
+                }
+            }
+            val last = if (monthlyTransactions.size > 4) {
+                monthlyTransactions.take(4)
+            } else {
+                monthlyTransactions
+            }
+            adapter.getList(last)
+            currentSpent = monthlyTransactions.sumOf { it.amount }
             updateBudgetUI()
         }
     }
@@ -94,6 +112,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
         binding.progressCircle.max = currentBudget.toInt().coerceAtLeast(1)
         binding.progressCircle.progress = currentSpent.toInt()
+
+        val savingsPercentage  = if (currentBudget > 0) {
+            (remainingBudget / currentBudget) * 100
+        } else 0.0
+        binding.tvRestante.text = "RESTANTE"
+        binding.tvPercentage.text = String.format("%.2f%%", savingsPercentage )
     }
 
     fun getUserIdOrToast(): String {
