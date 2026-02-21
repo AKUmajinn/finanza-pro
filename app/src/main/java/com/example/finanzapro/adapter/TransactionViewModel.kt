@@ -33,6 +33,9 @@ class TransactionViewModel: ViewModel() {
                     }
                 }
 
+                //orden decensdente
+                transactions.sortByDescending { it.timestamp }
+
                 _listTransactions.postValue(transactions)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -45,7 +48,7 @@ class TransactionViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 transactionsRef.child(user + "/" + table + "/" + transaction.id).setValue(transaction).await()
-                _listTransactions.postValue(_listTransactions.value?.plus(transaction))
+                getTransactions(user, table)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -56,9 +59,6 @@ class TransactionViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 transactionsRef.child(transaction.id).setValue(transaction).await()
-                _listTransactions.postValue(_listTransactions.value?.map {
-                    if (it.id == transaction.id) transaction else it
-                })
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -75,5 +75,4 @@ class TransactionViewModel: ViewModel() {
             }
         }
     }
-
 }
