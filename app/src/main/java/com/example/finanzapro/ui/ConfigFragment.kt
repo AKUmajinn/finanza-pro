@@ -16,6 +16,7 @@ import com.example.finanzapro.adapter.ConfigViewModel
 import com.example.finanzapro.adapter.TransactionViewModel
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
+import java.util.Calendar
 import java.util.Locale
 
 class ConfigFragment : Fragment(R.layout.fragment_configuration) {
@@ -71,7 +72,20 @@ class ConfigFragment : Fragment(R.layout.fragment_configuration) {
         }
 
         transactionViewModel.listTransactions.observe(viewLifecycleOwner) { transactions ->
-            currentSpent = transactions.sumOf { it.amount }
+            val calendar = Calendar.getInstance()
+            val currentMonth = calendar.get(Calendar.MONTH)
+            val currentYear = calendar.get(Calendar.YEAR)
+            val monthlyTransactions = transactions.filter { transaction ->
+                try {
+                    val cal = Calendar.getInstance()
+                    cal.timeInMillis = transaction.timestamp
+                    cal.get(Calendar.MONTH) == currentMonth && cal.get(Calendar.YEAR) == currentYear
+                } catch (e: Exception) {
+                    false
+                }
+            }
+
+            currentSpent = monthlyTransactions.sumOf { it.amount }
             updateBudgetUI()
         }
     }

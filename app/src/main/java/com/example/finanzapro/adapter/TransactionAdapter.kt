@@ -23,7 +23,7 @@ class TransactionAdapter(private var listTran: List<Transaction>) : RecyclerView
         holder.binding.tvSimbolo.text = "S/ "
         holder.binding.tvItemBills.text = String.format(Locale.US, "%.2f", item.amount)
 
-        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault())
         holder.binding.tvDate.text = sdf.format(Date(item.timestamp))
 
         holder.binding.tvCategory.text = item.description
