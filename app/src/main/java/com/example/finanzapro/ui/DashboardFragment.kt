@@ -13,74 +13,100 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finanzapro.LoginActivity
 import com.example.finanzapro.MainActivity
 import com.example.finanzapro.R
+import com.example.finanzapro.adapter.ConfigViewModel
 import com.example.finanzapro.adapter.TransactionAdapter
 import com.example.finanzapro.adapter.TransactionViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.example.finanzapro.databinding.FragmentDashboardBinding
-import com.example.finanzapro.model.Transaction
+import java.util.Locale
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
-    private lateinit var btnRegisterSpent: FloatingActionButton
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: TransactionAdapter
-    private lateinit var viewModel: TransactionViewModel
-    private lateinit var trans: List<Transaction>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    private lateinit var adapter: TransactionAdapter
+    private lateinit var transactionViewModel: TransactionViewModel
+    private lateinit var configViewModel: ConfigViewModel
+
+    private var currentBudget: Double = 0.0
+    private var currentSpent: Double = 0.0
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[TransactionViewModel::class.java]
+
+        transactionViewModel = ViewModelProvider(requireActivity())[TransactionViewModel::class.java]
+        configViewModel = ViewModelProvider(requireActivity())[ConfigViewModel::class.java]
+
         val userId = getUserIdOrToast()
         if (userId.isEmpty()) {
             showToast("No hay usuario autenticado - Dashboard")
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            return
         }
-        adapter = TransactionAdapter(emptyList())
+
+        // 2. Configuración estética
         binding.customHeader.tvHeaderTitle.text = "Inicio"
         binding.customHeader.btnSearch.visibility = View.VISIBLE
 
+        adapter = TransactionAdapter(emptyList())
         binding.rvDashboard.layoutManager = LinearLayoutManager(requireContext())
         binding.rvDashboard.adapter = adapter
-        btnRegisterSpent = view.findViewById(R.id.register_spent)
-        btnRegisterSpent.setOnClickListener {
+
+        binding.registerSpent.setOnClickListener {
             (requireActivity() as MainActivity).replaceFragment(RegisterFragment())
         }
 
-        loadTransactions(userId, "transactions")
+        loadData(userId)
     }
 
-    fun loadTransactions(userId: String, table: String) {
-        viewModel.getTransactions(userId, table)
-        viewModel.listTransactions.observe(viewLifecycleOwner) { transactions ->
-            adapter.getList(transactions)
-            trans = transactions
-            val totalSpent = transactions.sumOf { it.amount }
-            binding.tvTotalSpent.text = totalSpent.toString()
-            val remainingBudget = 1000.0 - totalSpent
-            binding.tvRemainingBudget.text = remainingBudget.toString()
+    private fun loadData(userId: String) {
+        configViewModel.fetchUserData(userId)
+        transactionViewModel.getTransactions(userId, "transactions")
+
+        configViewModel.userProfile.observe(viewLifecycleOwner) { profile ->
+            if (profile != null) {
+                currentBudget = profile.monthly_budget
+                updateBudgetUI()
+            }
         }
+
+        transactionViewModel.listTransactions.observe(viewLifecycleOwner) { transactions ->
+            adapter.getList(transactions)
+            currentSpent = transactions.sumOf { it.amount }
+            updateBudgetUI()
+        }
+    }
+
+    private fun updateBudgetUI() {
+        binding.tvBudget.text = String.format(Locale.US, "%.2f", currentBudget)
+        binding.tvTotalSpent.text = String.format(Locale.US, "%.2f", currentSpent)
+
+        val remainingBudget = currentBudget - currentSpent
+        binding.tvRemainingBudget.text = String.format(Locale.US, "S/ %.2f", remainingBudget)
+
+        binding.progressCircle.max = currentBudget.toInt().coerceAtLeast(1)
+        binding.progressCircle.progress = currentSpent.toInt()
     }
 
     fun getUserIdOrToast(): String {
         val prefs = requireContext().getSharedPreferences("personal_data", Context.MODE_PRIVATE)
-        val userId = prefs.getString("userId", null)
-
-        if (userId.isNullOrEmpty()) {
-            showToast("No hay usuario autenticado")
-            return ""
-        }
-        return userId
+        return prefs.getString("userId", "") ?: ""
     }
 
     private fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(requireContext(), message, duration).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -5,71 +5,102 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.finanzapro.LoginActivity
+import com.example.finanzapro.MainActivity
 import com.example.finanzapro.R
-import com.example.finanzapro.model.UserProfile
+import com.example.finanzapro.adapter.ConfigViewModel
+import com.example.finanzapro.adapter.TransactionViewModel
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import java.util.Locale
 
 class ConfigFragment : Fragment(R.layout.fragment_configuration) {
+
+    private lateinit var configViewModel: ConfigViewModel
+    private lateinit var transactionViewModel: TransactionViewModel
+
     private lateinit var tvBudgetAmount: TextView
     private lateinit var pbBudget: LinearProgressIndicator
+    private lateinit var tvSpent: TextView
+    private lateinit var tvRemaining: TextView
 
-    private lateinit var auth: FirebaseAuth
+    private var currentBudget: Double = 0.0
+    private var currentSpent: Double = 0.0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        configViewModel = ViewModelProvider(requireActivity())[ConfigViewModel::class.java]
+        transactionViewModel = ViewModelProvider(requireActivity())[TransactionViewModel::class.java]
+
         view.findViewById<TextView>(R.id.tvHeaderTitle).text = "Configuración"
         view.findViewById<View>(R.id.btnSearch).visibility = View.GONE
         view.findViewById<View>(R.id.btnFilter).visibility = View.GONE
-        view.findViewById<View>(R.id.cvUserProfile).visibility = View.VISIBLE
 
         tvBudgetAmount = view.findViewById(R.id.tvBudgetAmount)
         pbBudget = view.findViewById(R.id.pbBudget)
+        tvSpent = view.findViewById(R.id.tvSpent)
+        tvRemaining = view.findViewById(R.id.tvRemaining)
 
-        loadConfigFromFirebase()
-        auth = FirebaseAuth.getInstance()
-        val btnSignOut = view.findViewById<Button>(R.id.btnSignOut)
-        btnSignOut.setOnClickListener {
-            auth.signOut()
-            val prefs = requireContext().getSharedPreferences("personal_data", Context.MODE_PRIVATE).edit()
-            prefs.remove("email")
-            prefs.remove("userId")
-            prefs.apply()
+        setupLogout(view)
 
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
+        // Escucha el clic en el botón de lápiz para editar el presupuesto
+        view.findViewById<ImageView>(R.id.btnEditBudget).setOnClickListener {
+            (requireActivity() as MainActivity).replaceFragment(EditBudgetFragment())
+        }
+
+        val userId = getUserIdFromPrefs()
+        if (userId.isNotEmpty()) {
+            configViewModel.fetchUserData(userId)
+            transactionViewModel.getTransactions(userId, "transactions")
+        }
+
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        configViewModel.userProfile.observe(viewLifecycleOwner) { profile ->
+            if (profile != null) {
+                currentBudget = profile.monthly_budget
+                updateBudgetUI()
+            }
+        }
+
+        transactionViewModel.listTransactions.observe(viewLifecycleOwner) { transactions ->
+            currentSpent = transactions.sumOf { it.amount }
+            updateBudgetUI()
         }
     }
 
-    private fun loadConfigFromFirebase() {
-        val database = Firebase.database
-        val myRef = database.getReference("users/user_123/profile")
+    private fun updateBudgetUI() {
+        tvBudgetAmount.text = String.format(Locale.US, "S/ %,.2f", currentBudget)
+        tvSpent.text = String.format(Locale.US, "GASTADO: S/ %,.2f", currentSpent)
 
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val profile = snapshot.getValue(UserProfile::class.java)
+        val remaining = currentBudget - currentSpent
+        tvRemaining.text = String.format(Locale.US, "RESTANTE: S/ %,.2f", remaining)
 
-                if (profile != null) {
-                    val montoFormateado = String.format("%,.2f", profile.monthly_budget)
-                    tvBudgetAmount.text = "S/ $montoFormateado"
-                    pbBudget.max = profile.monthly_budget.toInt()
-                    pbBudget.progress = 850 //hasta que se tenga el calculo
-                }
-            }
+        // Usar coerceAtLeast(1) evita errores de división por cero en la barra de progreso
+        pbBudget.max = currentBudget.toInt().coerceAtLeast(1)
+        pbBudget.progress = currentSpent.toInt()
+    }
 
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "Error cargando datos: ${error.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+    private fun getUserIdFromPrefs(): String {
+        val prefs = requireContext().getSharedPreferences("personal_data", Context.MODE_PRIVATE)
+        return prefs.getString("userId", "") ?: ""
+    }
+
+    private fun setupLogout(view: View) {
+        view.findViewById<Button>(R.id.btnSignOut).setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            requireContext().getSharedPreferences("personal_data", Context.MODE_PRIVATE)
+                .edit().clear().apply()
+
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
+        }
     }
 }
