@@ -22,7 +22,7 @@ class TicketsAdapter(private var tickets: List<Transaction>) :
         val transaction = tickets[position]
 
         // formateo del timestamp par fecha
-        val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        val sdf = SimpleDateFormat("dd MMM yyyy hh:mm", Locale.getDefault())
         holder.binding.tvTicketDate.text = sdf.format(Date(transaction.timestamp))
 
         holder.binding.tvTicketName.text = transaction.description
