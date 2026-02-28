@@ -8,15 +8,21 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.finanzapro.LoginActivity
 import com.example.finanzapro.MainActivity
 import com.example.finanzapro.R
+import com.example.finanzapro.adapter.ApiService
+import com.example.finanzapro.adapter.RetrofitClient
 import com.example.finanzapro.adapter.TransactionViewModel
 import com.example.finanzapro.databinding.FragmentRegisterBinding
 import com.example.finanzapro.model.Transaction
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -152,7 +158,32 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun cargarCategorias() {
-        val categorias = listOf(
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.api.getCategories()
+                var categorias = emptyList<String>()
+                if (response.isSuccessful) {
+                    categorias = response.body() ?: emptyList()
+                }
+                if (categorias.isEmpty()) {
+                    categorias = getCategoriesLocal()
+                }
+                val adapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    categorias
+                )
+                binding.actvCategoria.setAdapter(adapter)
+                binding.actvCategoria.threshold = 1
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showToast("Error al cargar las categorías")
+            }
+        }
+    }
+
+    private fun getCategoriesLocal() : List<String> {
+        return listOf(
             "Alimentación",
             "Transporte",
             "Vivienda",
@@ -165,15 +196,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             "Viajes",
             "Otros"
         )
-
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            categorias
-        )
-
-        binding.actvCategoria.setAdapter(adapter)
-        binding.actvCategoria.threshold = 1
     }
 
     private fun establecerFechaHoraActual() {
