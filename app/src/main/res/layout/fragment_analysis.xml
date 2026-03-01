@@ -160,10 +160,11 @@
         <!-- Gráfico de pastel -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardPieChart"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
             android:layout_height="250dp"
             android:layout_marginTop="16dp"
-            app:cardCornerRadius="5dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
