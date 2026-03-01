@@ -194,6 +194,13 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:id="@+id/tvUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Text.SaludoEmail"
+                />
+
             <Button
                 android:id="@+id/btnSignOut"
                 android:layout_width="match_parent"

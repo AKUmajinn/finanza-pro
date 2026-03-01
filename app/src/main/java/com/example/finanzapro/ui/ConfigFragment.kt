@@ -28,7 +28,7 @@ class ConfigFragment : Fragment(R.layout.fragment_configuration) {
     private lateinit var pbBudget: LinearProgressIndicator
     private lateinit var tvSpent: TextView
     private lateinit var tvRemaining: TextView
-
+    private val auth = FirebaseAuth.getInstance()
     private var currentBudget: Double = 0.0
     private var currentSpent: Double = 0.0
 
@@ -61,6 +61,7 @@ class ConfigFragment : Fragment(R.layout.fragment_configuration) {
         }
 
         setupObservers()
+        showCurrentUser()
     }
 
     private fun setupObservers() {
@@ -109,12 +110,20 @@ class ConfigFragment : Fragment(R.layout.fragment_configuration) {
 
     private fun setupLogout(view: View) {
         view.findViewById<Button>(R.id.btnSignOut).setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
+            auth.signOut()
             requireContext().getSharedPreferences("personal_data", Context.MODE_PRIVATE)
                 .edit().clear().apply()
 
             startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().finish()
+        }
+    }
+
+    private fun showCurrentUser() {
+        val user = auth.currentUser
+        if (user != null) {
+            val tvUser = view?.findViewById<TextView>(R.id.tvUser)
+            tvUser?.text = "Bienvenido: ${user.email}"
         }
     }
 }
