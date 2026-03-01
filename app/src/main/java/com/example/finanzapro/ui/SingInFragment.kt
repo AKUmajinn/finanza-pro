@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.finanzapro.LoginActivity
 import com.example.finanzapro.MainActivity
 import com.example.finanzapro.R
 import com.example.finanzapro.databinding.FragmentSingInBinding
@@ -31,6 +32,9 @@ class SingInFragment : Fragment(R.layout.fragment_sing_in)  {
         super.onViewCreated(view, savedInstanceState)
         binding.btnLogin.setOnClickListener {
             login()
+        }
+        binding.tvRegister.setOnClickListener {
+            (requireActivity() as LoginActivity).replaceFragment(UserRegisterFragment())
         }
     }
 

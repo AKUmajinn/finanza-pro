@@ -2,6 +2,7 @@ package com.example.finanzapro
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.finanzapro.databinding.ActivityLoginBinding
 import com.example.finanzapro.ui.SingInFragment
 
@@ -13,10 +14,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if (savedInstanceState == null) {
+            replaceFragment(SingInFragment())
+        }
+    }
 
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.login_container, SingInFragment())
-        fragmentTransaction.commit()
+    fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.login_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }
